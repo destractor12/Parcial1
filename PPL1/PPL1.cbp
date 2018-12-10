@@ -39,6 +39,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Funciones.h" />
+		<Unit filename="Marca.h" />
 		<Unit filename="automoviles.c">
 			<Option compilerVar="CC" />
 		</Unit>

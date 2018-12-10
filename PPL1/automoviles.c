@@ -8,6 +8,7 @@
 #define FERRARI "FERRARI"
 #define AUDI "AUDI\t"
 #define OTRO "OTRO\t"
+#include "automoviles.h"
 
 int idAutoIncrementalAutomovil(eAutomovil listadoAutomovil[],int tamanioAutomovil)
 {
@@ -42,9 +43,9 @@ int altaAutomovil(eAutomovil listadoAutomovil[],ePropietario listadoPropietario[
                 gets(listadoAutomovil[indice].patente);
                 validarPatenteIngresada(listadoAutomovil[indice].patente);
                 mostrarMarcasAutomovil(listadoAutomovil);
-                listadoAutomovil[indice].marca=getInt("\nIngresa la marca de tu automovil ",listadoAutomovil[indice].marca);
-                verificarMarca(listadoAutomovil[indice].marca);
-                cambiarMarcas(listadoAutomovil,listadoAutomovil[indice].marca,listadoAutomovil[indice].marcaNombre);
+                listadoAutomovil[indice].marca.idMarca=getInt("\nIngresa la marca de tu automovil ",listadoAutomovil[indice].marca.idMarca);
+                verificarMarca(listadoAutomovil[indice].marca.idMarca);
+                cambiarMarcas(listadoAutomovil,listadoAutomovil[indice].marca.idMarca,listadoAutomovil[indice].marca.Marcanombre);
                 listadoAutomovil[indice].idIngreso=idAutoIncrementalAutomovil(listadoAutomovil,tamanioAutomovil);
                 listadoAutomovil[indice].estado=1;
                 concreto=1;
@@ -84,7 +85,7 @@ int buscarLibreAutomovil(eAutomovil listadoAutomovil[],int tamanioAutomovil)
 
 void mostrarUnoAutomovil(eAutomovil listadoAutomovil[],int tamanio,int i)
 {
-    printf("%d\t\t%d\t\t  %s\t     %s\n",listadoAutomovil[i].idIngreso,listadoAutomovil[i].idPropietario,listadoAutomovil[i].patente,listadoAutomovil[i].marcaNombre);
+    printf("%d\t\t%d\t\t  %s\t     %s\n",listadoAutomovil[i].idIngreso,listadoAutomovil[i].idPropietario,listadoAutomovil[i].patente,listadoAutomovil[i].marca.Marcanombre);
 }
 
 void mostrarListaAutomovil(eAutomovil listadoAutomovil[],int tamanio,int flag)
@@ -97,8 +98,8 @@ void mostrarListaAutomovil(eAutomovil listadoAutomovil[],int tamanio,int flag)
         {
             if(listadoAutomovil[i].estado==1)
             {
-                cambiarMarcas(listadoAutomovil,listadoAutomovil[i].marca,listadoAutomovil[i].marcaNombre);
-                printf("%d\t\t%d\t\t%s\t\t%s\n",listadoAutomovil[i].idIngreso,listadoAutomovil[i].idPropietario,listadoAutomovil[i].patente,listadoAutomovil[i].marcaNombre);
+                cambiarMarcas(listadoAutomovil,listadoAutomovil[i].marca.idMarca,listadoAutomovil[i].marca.Marcanombre);
+                printf("%d\t\t%d\t\t%s\t\t%s\n",listadoAutomovil[i].idIngreso,listadoAutomovil[i].idPropietario,listadoAutomovil[i].patente,listadoAutomovil[i].marca.Marcanombre);
             }
 
         }
@@ -138,7 +139,7 @@ int cargarHarcodeAutomovil(eAutomovil listadoAutomovil[],int tamanioAutomovil)
     {
         strcpy(listadoAutomovil[i].patente,patente[i]);
         listadoAutomovil[i].idIngreso=id[i];
-        listadoAutomovil[i].marca=marca[i];
+        listadoAutomovil[i].marca.idMarca=marca[i];
         listadoAutomovil[i].idPropietario=Propietario[i];
         listadoAutomovil[i].estado=1;
     }
@@ -262,8 +263,8 @@ void mostrarUsuarioConSusAutomoviles(ePropietario listadoPropietario[],eAutomovi
             {
                 if(listadoPropietario[indice].IdPropietario==listadoAutomovil[i].idPropietario)
                 {
-                    cambiarMarcas(listadoAutomovil,listadoAutomovil[i].marca,listadoAutomovil[i].marcaNombre);
-                    printf("\nMarca: %s",listadoAutomovil[i].marcaNombre);
+                    cambiarMarcas(listadoAutomovil,listadoAutomovil[i].marca.idMarca,listadoAutomovil[i].marca.Marcanombre);
+                    printf("\nMarca: %s",listadoAutomovil[i].marca.Marcanombre);
                     printf("\nPatente: %s\n",listadoAutomovil[i].patente);
                 }
             }
@@ -291,7 +292,7 @@ void mostrarPropietarioAudi(ePropietario listadoPropietario[],eAutomovil listado
         printf("ID\tNombre\tTarjeta de credito\tDireccion\n");
         for(i=0; i<tamanioAutomovil; i++)
         {
-            if(listadoAutomovil[i].estado==1&&listadoAutomovil[i].marca==3)
+            if(listadoAutomovil[i].estado==1&&listadoAutomovil[i].marca.idMarca==3)
             {
                 for(j=0; j<tamanioPropietario; j++)
                 {
@@ -347,8 +348,8 @@ void mostrarOrdenadosPorPatente(ePropietario listadoPropietario[],eAutomovil lis
                     if(estructuraOrdenada[i].idPropietario==listadoPropietario[j].IdPropietario&&listadoPropietario[j].estado==1)
                     {
                         largo=strlen(listadoPropietario[j].NombreyApellido);
-                        cambiarMarcas(estructuraOrdenada,estructuraOrdenada[i].marca,estructuraOrdenada[i].marcaNombre);
-                        printf("\n%d\t\t%s\t  %s\t   %s\t\t",estructuraOrdenada[i].idIngreso,estructuraOrdenada[i].patente,estructuraOrdenada[i].marcaNombre,listadoPropietario[j].NombreyApellido);
+                        cambiarMarcas(estructuraOrdenada,estructuraOrdenada[i].marca.idMarca,estructuraOrdenada[i].marca.Marcanombre);
+                        printf("\n%d\t\t%s\t  %s\t   %s\t\t",estructuraOrdenada[i].idIngreso,estructuraOrdenada[i].patente,estructuraOrdenada[i].marca.Marcanombre,listadoPropietario[j].NombreyApellido);
                         if(largo<5)
                         {
                             printf("\t");
@@ -376,8 +377,8 @@ void transefrirDatos(eAutomovil listadoAutomovil[],eAutomovil auxiliarAutomovil[
             auxiliarAutomovil[i].estado=listadoAutomovil[i].estado;
             auxiliarAutomovil[i].idIngreso=listadoAutomovil[i].idIngreso;
             auxiliarAutomovil[i].idPropietario=listadoAutomovil[i].idPropietario;
-            auxiliarAutomovil[i].marca=listadoAutomovil[i].marca;
-            strcpy(auxiliarAutomovil[i].marcaNombre,listadoAutomovil[i].marcaNombre);
+            auxiliarAutomovil[i].marca.idMarca=listadoAutomovil[i].marca.idMarca;
+            strcpy(auxiliarAutomovil[i].marca.Marcanombre,listadoAutomovil[i].marca.Marcanombre);
             strcpy(auxiliarAutomovil[i].patente,listadoAutomovil[i].patente);
         }
     }

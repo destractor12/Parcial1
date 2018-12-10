@@ -212,15 +212,15 @@ int borrarEntidadAutomovil(eAutomovil listadoAutomovil[],ePropietario listadoPro
 {
     char pregunta;
     int horas;
-    int valor;
+    //int valor;
     int indiceEgreso;
     int retorno=0;
     if(indice!=-1)
     {
         horas=devolverHorasEstadia();
-        valor=tasarEstadia(listadoAutomovil[indice].marca,horas);
-        cambiarMarcas(listadoAutomovil,listadoAutomovil[indice].marca,listadoAutomovil[indice].marcaNombre);
-        printf("\nNombre del propietario: %s\nPatente del Auto: %s\nMarca del auto: %s\nHoras de estadia: %d\nValor de la estadia: $%d\n",listadoPropietario[indicePropietario].NombreyApellido,listadoAutomovil[indice].patente,listadoAutomovil[indice].marcaNombre,horas,valor);
+        listadoAutomovil[indice].marca.Precio=tasarEstadia(listadoAutomovil[indice].marca.idMarca,horas);
+        cambiarMarcas(listadoAutomovil,listadoAutomovil[indice].marca.idMarca,listadoAutomovil[indice].marca.Marcanombre);
+        printf("\nNombre del propietario: %s\nPatente del Auto: %s\nMarca del auto: %s\nHoras de estadia: %d\nValor de la estadia: $%d\n",listadoPropietario[indicePropietario].NombreyApellido,listadoAutomovil[indice].patente,listadoAutomovil[indice].marca.Marcanombre,horas,listadoAutomovil[indice].marca.Precio);
         pregunta=deseaContinuar(mensaje);
         if(pregunta=='s')
         {
@@ -229,8 +229,8 @@ int borrarEntidadAutomovil(eAutomovil listadoAutomovil[],ePropietario listadoPro
             listadoEgresos[indiceEgreso].estado=1;
             listadoEgresos[indiceEgreso].idEgreso=idEgresoAutoIncremental(listadoEgresos,tamanioEgreso);
             listadoEgresos[indiceEgreso].idIngreso=listadoAutomovil[indice].idIngreso;
-            listadoEgresos[indiceEgreso].marca=listadoAutomovil[indice].marca;
-            listadoEgresos[indiceEgreso].recaudacion=valor;
+            listadoEgresos[indiceEgreso].marca.idMarca=listadoAutomovil[indice].marca.idMarca;
+            listadoEgresos[indiceEgreso].recaudacion=listadoAutomovil[indice].marca.Precio;
             listadoEgresos[indiceEgreso].horas=horas;
             retorno=1;
         }
@@ -293,15 +293,15 @@ void mostrarRecaudacionesPorMarca(eEgreso listadoEgresos[],int tamanio,int flag)
         {
             if(listadoEgresos[i].estado==1)
             {
-                if(listadoEgresos[i].marca==1)
+                if(listadoEgresos[i].marca.idMarca==1)
                 {
                     alpha+=listadoEgresos[i].recaudacion;
                 }
-                else if(listadoEgresos[i].marca==2)
+                else if(listadoEgresos[i].marca.idMarca==2)
                 {
                     ferrari+=listadoEgresos[i].recaudacion;
                 }
-                else if(listadoEgresos[i].marca==3)
+                else if(listadoEgresos[i].marca.idMarca==3)
                 {
                     audi+=listadoEgresos[i].recaudacion;
                 }
@@ -328,11 +328,11 @@ int egresosHarcode(eEgreso listadoEgreso[])
 {
     int marca[]= {1,1,2,3,2,2,3,4,1,1};
     float importe[]= {100,200,100,300,100,100,200,200,100,100};
-    int idPropietario[]= {1,4,3,2,1,2,2,4,3,1};
+    //int idPropietario[]= {1,4,3,2,1,2,2,4,3,1};
     int i;
     for(i=0; i<10; i++)
     {
-        listadoEgreso[i].marca=marca[i];
+        listadoEgreso[i].marca.idMarca=marca[i];
         listadoEgreso[i].recaudacion=importe[i];
         listadoEgreso[i].estado=1;
     }
@@ -366,8 +366,8 @@ int darDeBajaPropietario(ePropietario listadoPropietario[],eAutomovil listadoAut
 int borrarEntidadPropietario(ePropietario listadoPropietario[],eAutomovil listadoAutomovil[],eEgreso listadoEgresos[],int tamanioAutomovil,int indice,int tamanioEgreso,char mensaje[])
 {
     int contadorEncontrados=0;
-    int valor=0;
-    int contadorEgresados=0;
+    //int valor=0;
+    //int contadorEgresados=0;
     char pregunta;
     int valorTotal=0;
     int retorno=0;
@@ -379,8 +379,8 @@ int borrarEntidadPropietario(ePropietario listadoPropietario[],eAutomovil listad
             if(listadoPropietario[indice].IdPropietario==listadoAutomovil[i].idPropietario&&listadoAutomovil[i].estado==1)
             {
                 contadorEncontrados=contadorEncontrados+1;
-                valor=tasarEstadia(listadoAutomovil[indice].marca,horas);
-                valorTotal=valorTotal+valor;
+                listadoAutomovil[indice].marca.Precio=tasarEstadia(listadoAutomovil[indice].marca.idMarca,horas);
+                valorTotal=valorTotal+listadoAutomovil[indice].marca.Precio;
             }
     }
     printf("\nDebe abonar $%d correspondientes a los %d coches que tiene estacionados",valorTotal,contadorEncontrados);
@@ -393,7 +393,7 @@ int borrarEntidadPropietario(ePropietario listadoPropietario[],eAutomovil listad
         {
             if(listadoPropietario[indice].IdPropietario==listadoAutomovil[i].idPropietario&&listadoAutomovil[i].estado==1)
             {
-                egresarCochePropietario(listadoPropietario,listadoAutomovil,listadoEgresos,tamanioAutomovil,i,tamanioEgreso,valor,horas);
+                egresarCochePropietario(listadoPropietario,listadoAutomovil,listadoEgresos,tamanioAutomovil,i,tamanioEgreso,listadoAutomovil[indice].marca.Precio,horas);
                 retorno=1;
             }
         }
@@ -413,7 +413,7 @@ int tasarCochePropietario(ePropietario listadoPropietario[],eAutomovil listadoAu
     int horas;
     int valor;
     horas=devolverHorasEstadia();
-    valor=tasarEstadia(listadoAutomovil[indice].marca,horas);
+    valor=tasarEstadia(listadoAutomovil[indice].marca.idMarca,horas);
     return valor;
 }
 

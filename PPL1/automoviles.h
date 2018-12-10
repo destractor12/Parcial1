@@ -1,13 +1,13 @@
 #ifndef AUTOMOVIL_H_INCLUDED
 #define AUTOMOVIL_H_INCLUDED
 #include "Funciones.h"
+#include "Marca.h"
 
 typedef struct
 {
     int idIngreso;
     char patente[8];
-    int marca;
-    char marcaNombre[10];
+    eMarca marca;
     int idPropietario;
     int estado;
 } eAutomovil;

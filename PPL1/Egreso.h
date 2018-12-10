@@ -7,7 +7,7 @@ typedef struct
     int idEgreso;
     int idIngreso;
     int horas;
-    int marca;
+    eMarca marca;
     int estado;
     float recaudacion;
 }eEgreso;

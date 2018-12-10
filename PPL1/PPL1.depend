@@ -44,27 +44,29 @@
 1539306745 c:\users\nico\desktop\ppl1-master\ppl1\egreso.h
 	"automoviles.h"
 
-1543992389 source:c:\users\nico\desktop\ppl1\automoviles.c
+1544411288 source:c:\users\nico\desktop\ppl1\automoviles.c
 	"automoviles.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<ctype.h>
 	<time.h>
+	"automoviles.h"
 
-1543992389 c:\users\nico\desktop\ppl1\automoviles.h
+1544410577 c:\users\nico\desktop\ppl1\automoviles.h
 	"Funciones.h"
+	"Marca.h"
 
 1543995780 c:\users\nico\desktop\ppl1\funciones.h
 
-1543994608 source:c:\users\nico\desktop\ppl1\egreso.c
+1544411785 source:c:\users\nico\desktop\ppl1\egreso.c
 	<stdio.h>
 	"Egreso.h"
 
-1543969215 c:\users\nico\desktop\ppl1\egreso.h
+1544411385 c:\users\nico\desktop\ppl1\egreso.h
 	"automoviles.h"
 
-1543994292 source:c:\users\nico\desktop\ppl1\main.c
+1543995792 source:c:\users\nico\desktop\ppl1\main.c
 	<stdio.h>
 	<stdlib.h>
 	"Egreso.h"
@@ -75,4 +77,6 @@
 	<ctype.h>
 	<string.h>
 	"automoviles.h"
+
+1544411258 c:\users\nico\desktop\ppl1\marca.h
 
